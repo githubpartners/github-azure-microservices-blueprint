@@ -1,3 +1,5 @@
+[![Build Status](https://cookingwithazure.visualstudio.com/winops/_apis/build/status/winops-CI)](https://cookingwithazure.visualstudio.com/winops/_build/latest?definitionId=23)
+
 # winops-london
 Repository to hold my demo files for [my talk](https://www.winops.org/london/agenda/bluegreen.php) at WinOps London 2018
 
