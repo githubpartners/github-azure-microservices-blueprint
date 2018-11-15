@@ -37,6 +37,8 @@ steps:
   displayName: 'Build api'
 
 - script: |
+    ls
+    env
     cd app/smackapi
     docker build -t $(dockerId)/$(imageName) .  # add options to this command to meet your needs
   displayName: 'docker build api'
