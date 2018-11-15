@@ -1,0 +1,37 @@
+pool:
+  vmImage: 'Ubuntu 16.04'
+
+variables:
+  GOBIN:  '$(GOPATH)/bin' # Go binaries path
+  GOROOT: '/usr/local/go1.11' # Go installation path
+  GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
+  modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)' # Path to the module's code
+
+steps:
+- script: |
+    mkdir -p '$(GOBIN)'
+    mkdir -p '$(GOPATH)/pkg'
+    mkdir -p '$(modulePath)'
+    shopt -s extglob
+    mv !(gopath) '$(modulePath)'
+    echo '##vso[task.prependpath]$(GOBIN)'
+    echo '##vso[task.prependpath]$(GOROOT)/bin'
+  displayName: 'Set up the Go workspace'
+
+- script: |
+    go version
+    cd app/smackweb
+    go get github.com/gorilla/mux
+    GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o smackweb
+    go test -v
+  workingDirectory: '$(modulePath)'
+  displayName: 'Build web'
+
+- script: |
+    go version
+    cd app/smackapi
+    go get github.com/gorilla/mux
+    GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o smackapi
+    go test -v
+  workingDirectory: '$(modulePath)'
+  displayName: 'Build api'
