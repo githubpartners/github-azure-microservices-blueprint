@@ -37,15 +37,13 @@ steps:
   displayName: 'Build api'
 
 - script: |
-    ls
-    env
     cd app/smackapi
-    docker build -t $(dockerId)/$(imageName) .  # add options to this command to meet your needs
+    docker build -t $(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion) .  # add options to this command to meet your needs
   displayName: 'docker build api'
 
 - script: |
     cd app/smackweb
-    docker build -t $(dockerId)/$(imageName) .  # add options to this command to meet your needs
+    docker build -t $(dockerId)/$(imageName):$(Build.SourceBranchName)-$(Build.SourceVersion) .  # add options to this command to meet your needs
   displayName: 'docker build web'
 
 - script: |
