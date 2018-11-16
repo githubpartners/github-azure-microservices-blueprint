@@ -56,6 +56,7 @@ az network dns record-set a add-record -g dns -z cookingwithazure.com -n *.mesh 
 - [ ] Deploy AKS
 - [ ] Install Helm
 - [ ] Install Istio
+- [ ] Deploy app
 
 
 
