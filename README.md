@@ -32,7 +32,7 @@ kubectl apply -f install/kubernetes/istio-demo-auth.yaml
 
 kubectl label namespace default istio-injection=enabled
 
-check all is good:
+#check all is good:
 kubectl get pods -n istio-system
 kubectl get svc -n istio-system
 ```
@@ -50,6 +50,12 @@ brew install istioctl
 kubectl get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 az network dns record-set a add-record -g dns -z cookingwithazure.com -n *.mesh --value <IP>
 ```
+
+### Demo flow
+
+- [ ] Deploy AKS
+- [ ] Install Helm
+- [ ] Install Istio
 
 
 

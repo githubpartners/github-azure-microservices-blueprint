@@ -1,0 +1,99 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: smackapi
+  labels:
+    app: smackapi
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 8081
+    targetPort: 8081
+  selector:
+    app: smackapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smackapi-blue
+  labels:
+    app: smackapi
+    version: blue
+spec:
+  replicas: 3 
+  selector:
+    matchLabels:
+      name: smackapi-blue
+  template:
+    metadata:
+      labels:
+        name: smackapi-blue
+        app: smackapi
+        version: blue
+    spec:
+      containers:
+      - name: smackapi
+        image: ams0/smackapi:master-f7c2431b
+        env:
+        - name: KUBE_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: KUBE_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: KUBE_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: IfNotPresent #Always
+        ports:
+        - containerPort: 8081
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smackapi-green
+  labels:
+    app: smackapi
+    version: green
+spec:
+  replicas: 3 
+  selector:
+    matchLabels:
+      name: smackapi-green
+  template:
+    metadata:
+      labels:
+        name: smackapi-green
+        app: smackapi
+        version: green
+    spec:
+      containers:
+      - name: smackapi
+        image: ams0/smackapi:master-f7c2431b
+        env:
+        - name: KUBE_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: KUBE_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: KUBE_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: IfNotPresent #Always
+        ports:
+        - containerPort: 8081

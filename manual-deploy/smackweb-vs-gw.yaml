@@ -1,0 +1,46 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: smackweb-gateway
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: smackweb-vs
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - smackweb-gateway
+  http:
+  - route:
+    - destination:
+        host: smackweb
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: smackapi-vs
+spec:
+  hosts:
+  - smackapi.default.svc.cluster.local
+  http:
+  - route:
+    - destination:
+        host: smackapi
+        subset: blue
+      weight: 50 
+    - destination:
+        host: smackapi
+        subset: green
+      weight: 50
