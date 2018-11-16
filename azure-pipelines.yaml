@@ -30,7 +30,7 @@ steps:
 - script: |
     go version
     ls ..
-    ls /home/vsts/work/1/s/gopath/src/github.com/
+    ls -alF /home/vsts/work/1/s/gopath/src/github.com/
     ls /home/vsts/work/1/s/
     echo $(modulePath)
     cd app/smackapi
@@ -39,7 +39,12 @@ steps:
     go test -v
   workingDirectory: '$(modulePath)'
   displayName: 'Build api'
-  
+
+- script: |
+    docker build ams0/smackweb:0.1 app/smackweb/
+  workingDirectory: '$(modulePath)'
+  displayName: 'manual build'
+
 - task: Docker@0
   displayName: 'Build docker api'
   inputs:
