@@ -42,6 +42,7 @@ steps:
     containerregistrytype: 'Container Registry'
     dockerRegistryConnection: dockerhub
     dockerFile: app/smackapi/Dockerfile
+    workingDirectory: '$(modulePath)'
     imageName: '$(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion)'
 
 - task: Docker@0
@@ -50,6 +51,7 @@ steps:
     containerregistrytype: 'Container Registry'
     dockerRegistryConnection: dockerhub
     dockerFile: app/smackweb/Dockerfile
+    workingDirectory: '$(modulePath)'
     imageName: '$(dockerId)/smackweb:$(Build.SourceBranchName)-$(Build.SourceVersion)'
 
 - task: Docker@0
