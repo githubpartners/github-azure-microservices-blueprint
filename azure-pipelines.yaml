@@ -62,7 +62,7 @@ steps:
   workingDirectory: '$(modulePath)'
   displayName: 'docker push web'
 
-  - task: PublishBuildArtifacts@1
+- task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'drop' 
