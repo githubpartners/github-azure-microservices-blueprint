@@ -57,7 +57,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// render footer
-	fmt.Fprintf(w, "</table></body></html>")
+	fmt.Fprintf(w, "</table><br><br>Courtesy of Brian Redmond <a href='https://twitter.com/chzbrgr71'>@chzbrgr71</a>. Source available <a href='https://github.com/chzbrgr71/microsmackv2'>here</a> </body></html>")
 }
 
 func createTableCell() string {
