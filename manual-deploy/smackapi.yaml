@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: smackapi
-        image: ams0/smackapi:master-f7c2431b
+        image: ams0/smackapi:master-a7c30910
         env:
         - name: KUBE_NODE_NAME
           valueFrom:

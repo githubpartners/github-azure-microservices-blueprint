@@ -12,14 +12,14 @@ Talk Time: 2:45 - 3:30pm
 
 In this demo-driven talk I will show how you can implement advanced DevOps concepts like blue/green and canary deployment using Azure Pipelines targeting a polyglot application deployed to an Azure Kubernetes Cluster using Helm. Istio is used to shape traffic to different versions of the same microservice giving full control on what your users see and controlling the flow of releases throughout the pipeline.
 
-### Building the app with Azure Container Registry
+### Deploy AKS and install Helm
 
 ```bash
-export ACR_NAME=theregistry
-export VERSION=1.0
-az acr build -t microsmack/smackapi:$VERSION -r $ACRNAME ./smackapi
-az acr build -t microsmack/smackweb:$VERSION -r $ACRNAME ./smackweb
+az aks create -g aks -n mesh -n 1.11.4
+az aks get-credentials -g aks -n mesh
 
+#deploy helm with muy fancy one-liner
+kubectl create serviceaccount -n kube-system tiller; kubectl create clusterrolebinding tiller --clusterrole=cluster-admin --serviceaccount=kube-system:tiller; helm init --service-account tiller
 ```
 
 ### Install istio
@@ -64,3 +64,5 @@ az network dns record-set a add-record -g dns -z cookingwithazure.com -n *.mesh 
 ### Useful links
 
 [Smackapp source](https://github.com/chzbrgr71/microsmackv2)
+[Azure trials](aka.ms/aztrialsuk)
+[Isti](http://istio.sh)o
