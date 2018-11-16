@@ -62,6 +62,10 @@ steps:
   workingDirectory: '$(modulePath)'
   displayName: 'docker push web'
 
+- script: |
+    SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
+    echo $(Build.SourceBranchName)-$SHORT_COMMIT > imagetag
+    
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
