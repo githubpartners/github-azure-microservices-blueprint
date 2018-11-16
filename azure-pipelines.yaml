@@ -61,3 +61,8 @@ steps:
     docker push $(dockerId)/smackweb:$(Build.SourceBranchName)-$SHORT_COMMIT
   workingDirectory: '$(modulePath)'
   displayName: 'docker push web'
+
+  - task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+    artifactName: 'drop' 
