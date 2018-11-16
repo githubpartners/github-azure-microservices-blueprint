@@ -37,23 +37,27 @@ steps:
   displayName: 'Build api'
 
 - script: |
-    docker build -t $(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion) --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$(Build.SourceVersion) --build-arg VCS_REF=$(Build.SourceVersion) app/smackapi/
+    SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
+    docker build -t $(dockerId)/smackapi:$(Build.SourceBranchName)-$SHORT_COMMIT --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$SHORT_COMMIT --build-arg VCS_REF=$SHORT_COMMIT app/smackapi/
   workingDirectory: '$(modulePath)'
   displayName: 'docker build api'
 
 - script: |
-    docker build -t $(dockerId)/smackweb:$(Build.SourceBranchName)-$(Build.SourceVersion) --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$(Build.SourceVersion) --build-arg VCS_REF=$(Build.SourceVersion) app/smackweb/
+    SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
+    docker build -t $(dockerId)/smackweb:$(Build.SourceBranchName)-$SHORT_COMMIT --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$SHORT_COMMIT --build-arg VCS_REF=$SHORT_COMMIT app/smackweb/
   workingDirectory: '$(modulePath)'
   displayName: 'docker build web'
 
 - script: |
+    SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
     docker login -u $(dockerId) -p $(dockerPassword)
-    docker push $(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion) 
+    docker push $(dockerId)/smackapi:$(Build.SourceBranchName)-$SHORT_COMMIT 
   workingDirectory: '$(modulePath)'
   displayName: 'docker push api'
 
 - script: |
+    SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
     docker login -u $(dockerId) -p $(dockerPassword)
-    docker push $(dockerId)/smackweb:$(Build.SourceBranchName)-$(Build.SourceVersion) 
+    docker push $(dockerId)/smackweb:$(Build.SourceBranchName)-$SHORT_COMMIT
   workingDirectory: '$(modulePath)'
   displayName: 'docker push web'
