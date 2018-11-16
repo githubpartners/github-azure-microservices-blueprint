@@ -35,24 +35,36 @@ steps:
     go test -v
   workingDirectory: '$(modulePath)'
   displayName: 'Build api'
+  
+- task: Docker@0
+  displayName: 'Build docker api'
+  inputs:
+    containerregistrytype: 'Container Registry'
+    dockerRegistryConnection: dockerhub
+    dockerFile: app/smackapi/Dockerfile
+    imageName: '$(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion)'
 
-- script: |
-    cd app/smackapi
-    docker build -t $(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion) .  # add options to this command to meet your needs
-  displayName: 'docker build api'
+- task: Docker@0
+  displayName: 'Build docker web'
+  inputs:
+    containerregistrytype: 'Container Registry'
+    dockerRegistryConnection: dockerhub
+    dockerFile: app/smackweb/Dockerfile
+    imageName: '$(dockerId)/smackweb:$(Build.SourceBranchName)-$(Build.SourceVersion)'
 
-- script: |
-    cd app/smackweb
-    docker build -t $(dockerId)/$(imageName):$(Build.SourceBranchName)-$(Build.SourceVersion) .  # add options to this command to meet your needs
-  displayName: 'docker build web'
+- task: Docker@0
+  displayName: 'Push smackweb'
+  inputs:
+    containerregistrytype: 'Container Registry'
+    dockerRegistryConnection: dockerhub
+    action: 'Push an image'
+    imageName: '$(dockerId)/smackweb:$(Build.SourceBranchName)-$(Build.SourceVersion)'
+    
+- task: Docker@0
+  displayName: 'Push smackapi'
+  inputs:
+    containerregistrytype: 'Container Registry'
+    dockerRegistryConnection: dockerhub
+    action: 'Push an image'
+    imageName: '$(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion)'
 
-- script: |
-    docker login -u $(dockerId) -p $(pswd)
-    docker push $(dockerId)/$(imageName)
-  displayName: 'docker push api'
-
-
-- script: |
-    docker login -u $(dockerId) -p $(pswd)
-    docker push $(dockerId)/$(imageName)
-  displayName: 'docker push api'
