@@ -5,6 +5,8 @@ metadata:
 spec:
   hosts:
   - "*"
+  gateways:
+  - smackweb-gateway
   http:
   - route:
     - destination:
