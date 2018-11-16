@@ -41,41 +41,23 @@ steps:
   displayName: 'Build api'
 
 - script: |
-    docker build -t ams0/smackweb:0.1 app/smackweb/
+    docker build -t $(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion) -build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$(Build.SourceVersion) --build-arg VCS_REF=$(Build.SourceVersion) app/smackapi/
   workingDirectory: '$(modulePath)'
-  displayName: 'manual build'
+  displayName: 'docker build api'
 
-- task: Docker@0
-  displayName: 'Build docker api'
-  inputs:
-    containerregistrytype: 'Container Registry'
-    dockerRegistryConnection: dockerhub
-    dockerFile: app/smackapi/Dockerfile
-    workingDirectory: '$(modulePath)'
-    imageName: '$(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion)'
+- script: |
+    docker build -t $(dockerId)/smackweb:$(Build.SourceBranchName)-$(Build.SourceVersion) -build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$(Build.SourceVersion) --build-arg VCS_REF=$(Build.SourceVersion) app/smackweb/
+  workingDirectory: '$(modulePath)'
+  displayName: 'docker build web'
 
-- task: Docker@0
-  displayName: 'Build docker web'
-  inputs:
-    containerregistrytype: 'Container Registry'
-    dockerRegistryConnection: dockerhub
-    dockerFile: app/smackweb/Dockerfile
-    workingDirectory: '$(modulePath)'
-    imageName: '$(dockerId)/smackweb:$(Build.SourceBranchName)-$(Build.SourceVersion)'
+- script: |
+    docker login -u $(dockerId) -p $(dockerPassword)
+    docker push $(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion) 
+  workingDirectory: '$(modulePath)'
+  displayName: 'docker push api'
 
-- task: Docker@0
-  displayName: 'Push smackweb'
-  inputs:
-    containerregistrytype: 'Container Registry'
-    dockerRegistryConnection: dockerhub
-    action: 'Push an image'
-    imageName: '$(dockerId)/smackweb:$(Build.SourceBranchName)-$(Build.SourceVersion)'
-    
-- task: Docker@0
-  displayName: 'Push smackapi'
-  inputs:
-    containerregistrytype: 'Container Registry'
-    dockerRegistryConnection: dockerhub
-    action: 'Push an image'
-    imageName: '$(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion)'
-
+- script: |
+    docker login -u $(dockerId) -p $(dockerPassword)
+    docker push $(dockerId)/smackweb:$(Build.SourceBranchName)-$(Build.SourceVersion) 
+  workingDirectory: '$(modulePath)'
+  displayName: 'docker push web'
