@@ -37,7 +37,7 @@ kubectl get pods -n istio-system
 kubectl get svc -n istio-system
 ```
 
-### Install istioctl on mac
+### (Optional) nstall istioctl on mac
 
 ```bash
 brew tap ams0/istioctl
@@ -50,6 +50,26 @@ brew install istioctl
 kubectl get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 az network dns record-set a add-record -g dns -z cookingwithazure.com -n *.mesh --value <IP>
 ```
+### Build and push the web frontend
+
+```bash
+cd app/smackweb
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o smackweb
+docker build -t ams0/smackweb:0.4 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg IMAGE_TAG_REF=0.4 .
+docker push ams0/smackweb:0.4
+```
+
+### Install the app manually
+
+```bash
+cd manual_deploy
+kubectl apply -f .
+```
+
+### Build an Azure DevOps Build definition
+
+Create a project and a build pipeline connected to Github and point it to `azure-pipelines.yml`
+
 
 ### Demo flow
 
@@ -58,6 +78,7 @@ az network dns record-set a add-record -g dns -z cookingwithazure.com -n *.mesh 
 - [ ] Install Istio
 - [ ] Deploy app
 - [ ] Watch Azure DevOps
+- [ ] Watch Istio with [Grafana](http://127.0.0.1:8001/api/v1/namespaces/istio-system/services/grafana:3000/proxy/d/UbsSZTDik/istio-workload-dashboard?refresh=10s&orgId=1&var-namespace=default&var-workload=smackapi&var-srcns=All&var-srcwl=All&var-dstsvc=All)
 
 
 
