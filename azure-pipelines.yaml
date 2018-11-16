@@ -41,7 +41,7 @@ steps:
   displayName: 'Build api'
 
 - script: |
-    docker build ams0/smackweb:0.1 app/smackweb/
+    docker build -t ams0/smackweb:0.1 app/smackweb/
   workingDirectory: '$(modulePath)'
   displayName: 'manual build'
 
