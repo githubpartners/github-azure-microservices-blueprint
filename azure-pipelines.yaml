@@ -29,10 +29,6 @@ steps:
 
 - script: |
     go version
-    ls ..
-    ls -alF /home/vsts/work/1/s/gopath/src/github.com/
-    ls /home/vsts/work/1/s/
-    echo $(modulePath)
     cd app/smackapi
     go get github.com/gorilla/mux
     GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o smackapi
@@ -41,12 +37,12 @@ steps:
   displayName: 'Build api'
 
 - script: |
-    docker build -t $(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion) -build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$(Build.SourceVersion) --build-arg VCS_REF=$(Build.SourceVersion) app/smackapi/
+    docker build -t $(dockerId)/smackapi:$(Build.SourceBranchName)-$(Build.SourceVersion) --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$(Build.SourceVersion) --build-arg VCS_REF=$(Build.SourceVersion) app/smackapi/
   workingDirectory: '$(modulePath)'
   displayName: 'docker build api'
 
 - script: |
-    docker build -t $(dockerId)/smackweb:$(Build.SourceBranchName)-$(Build.SourceVersion) -build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$(Build.SourceVersion) --build-arg VCS_REF=$(Build.SourceVersion) app/smackweb/
+    docker build -t $(dockerId)/smackweb:$(Build.SourceBranchName)-$(Build.SourceVersion) --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$(Build.SourceVersion) --build-arg VCS_REF=$(Build.SourceVersion) app/smackweb/
   workingDirectory: '$(modulePath)'
   displayName: 'docker build web'
 
