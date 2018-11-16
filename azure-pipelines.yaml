@@ -64,8 +64,9 @@ steps:
 
 - script: |
     SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
-    echo $(Build.SourceBranchName)-$SHORT_COMMIT > imagetag
-    
+    echo $(Build.SourceBranchName)-$SHORT_COMMIT > $(Build.ArtifactStagingDirectory)/imagetag
+  displayName: 'export variable'
+
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
