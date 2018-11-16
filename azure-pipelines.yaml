@@ -29,7 +29,9 @@ steps:
 
 - script: |
     go version
-    pwd
+    ls ..
+    ls /home/vsts/work/1/s/gopath/src/github.com/
+    ls /home/vsts/work/1/s/
     echo $(modulePath)
     cd app/smackapi
     go get github.com/gorilla/mux
