@@ -1,0 +1,6 @@
+prod:
+  label: blue
+  weight: 50
+dev:
+  label: green
+  weight: 50

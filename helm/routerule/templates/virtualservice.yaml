@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: smackapi-vs
+spec:
+  hosts:
+  - smackapi.default.svc.cluster.local
+  http:
+  - route:
+    - destination:
+        host: smackapi
+        subset: {{ .Values.prod.label }}
+      weight: {{ .Values.prod.weight }}
+    - destination:
+        host: smackapi
+        subset: {{ .Values.dev.label }}
+      weight: {{ .Values.dev.weight }}
