@@ -29,6 +29,8 @@ steps:
 
 - script: |
     go version
+    pwd
+    echo $(modulePath)
     cd app/smackapi
     go get github.com/gorilla/mux
     GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o smackapi
