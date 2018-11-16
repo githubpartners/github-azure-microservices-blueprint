@@ -20,15 +20,6 @@ steps:
 
 - script: |
     go version
-    cd app/smackweb
-    go get github.com/gorilla/mux
-    GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o smackweb
-    go test -v
-  workingDirectory: '$(modulePath)'
-  displayName: 'Build web'
-
-- script: |
-    go version
     cd app/smackapi
     go get github.com/gorilla/mux
     GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o smackapi
@@ -44,23 +35,10 @@ steps:
 
 - script: |
     SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
-    docker build -t $(dockerId)/smackweb:$(Build.SourceBranchName)-$SHORT_COMMIT --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$SHORT_COMMIT --build-arg VCS_REF=$SHORT_COMMIT app/smackweb/
-  workingDirectory: '$(modulePath)'
-  displayName: 'docker build web'
-
-- script: |
-    SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
     docker login -u $(dockerId) -p $(dockerPassword)
     docker push $(dockerId)/smackapi:$(Build.SourceBranchName)-$SHORT_COMMIT 
   workingDirectory: '$(modulePath)'
   displayName: 'docker push api'
-
-- script: |
-    SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
-    docker login -u $(dockerId) -p $(dockerPassword)
-    docker push $(dockerId)/smackweb:$(Build.SourceBranchName)-$SHORT_COMMIT
-  workingDirectory: '$(modulePath)'
-  displayName: 'docker push web'
 
 - script: |
     SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
