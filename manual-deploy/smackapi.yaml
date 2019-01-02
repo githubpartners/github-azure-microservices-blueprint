@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: smackapi
-        image: ams0/smackapi:master-a7c30910
+        image: pierluigi.azurecr.io/smackapi:master-a7c30910
         env:
         - name: KUBE_NODE_NAME
           valueFrom:
@@ -54,6 +54,8 @@ spec:
         imagePullPolicy: IfNotPresent #Always
         ports:
         - containerPort: 8081
+      imagePullSecrets:
+        - name: "acrsecret"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -76,7 +78,7 @@ spec:
     spec:
       containers:
       - name: smackapi
-        image: ams0/smackapi:master-2ec28069
+        image: pierluigi.azurecr.io/smackapi:master-2ec28069
         env:
         - name: KUBE_NODE_NAME
           valueFrom:
@@ -96,3 +98,5 @@ spec:
         imagePullPolicy: IfNotPresent #Always
         ports:
         - containerPort: 8081
+      imagePullSecrets:
+        - name: "acrsecret"
