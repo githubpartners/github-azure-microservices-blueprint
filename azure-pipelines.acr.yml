@@ -10,6 +10,7 @@ variables:
 steps:
 - script: |
     echo 'Docker ID: $(dockerId)'
+    docker login -u $(dockerId) -p $(dockerPassword)
     mkdir -p '$(GOBIN)'
     mkdir -p '$(GOPATH)/pkg'
     mkdir -p '$(modulePath)'
