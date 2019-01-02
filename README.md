@@ -39,7 +39,33 @@ kubectl get pods -n istio-system
 kubectl get svc -n istio-system
 ```
 
-### (Optional) Install istioctl on mac
+### Deploy all pods at once
+
+```bash
+cd manual_deploy
+kubectl apply -f .
+```
+### Verify web app is running
+
+```bash
+kubectl get svc -n istio-system
+# Find the row corresponding to this:
+# NAME                     TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)
+# {...}
+# istio-ingressgateway     LoadBalancer   10.0.134.104   168.61.161.70   80:31380/TCP,443:31390/TCP,31400:31400/TCP,15011:30482/TCP,8060:30740/TCP,853:31204/TCP,15030:31704/TCP,15031:31097/TCP   38m
+# {...}
+# and paste the EXTERNAL_IP in your browser to load the web app's dashboard
+
+```
+
+### Build an Azure DevOps Build definition
+
+Create a project and a build pipeline connected to Github and point it to `azure-pipelines.yml`
+
+
+## Optional
+
+### Install istioctl on mac
 
 ```bash
 brew tap ams0/istioctl
@@ -50,8 +76,10 @@ brew install istioctl
 
 ```bash
 kubectl get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
-az network dns record-set a add-record -g dns -z cookingwithazure.com -n *.mesh --value <IP>
+# Returns your IP
+az network dns record-set a add-record -g dns -z <YOUR_FQDN> -n *.mesh --value <IP>
 ```
+
 ### Build and push the web frontend
 
 ```bash
@@ -60,17 +88,6 @@ GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o smackweb
 docker build -t ams0/smackweb:0.4 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg IMAGE_TAG_REF=0.4 .
 docker push ams0/smackweb:0.4
 ```
-
-### Install the app manually
-
-```bash
-cd manual_deploy
-kubectl apply -f .
-```
-
-### Build an Azure DevOps Build definition
-
-Create a project and a build pipeline connected to Github and point it to `azure-pipelines.yml`
 
 
 ### Demo flow
