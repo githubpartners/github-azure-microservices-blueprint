@@ -28,16 +28,13 @@ steps:
   displayName: 'Build api'
 
 - script: |
-    docker build -t $(dockerId).azurecr.io/smackapi:$(Build.SourceBranchName)-$SHORT_COMMIT --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$SHORT_COMMIT --build-arg VCS_REF=$SHORT_COMMIT app/smackapi/
-  workingDirectory: '$(modulePath)'
-  displayName: 'docker build api'
-
-- script: |
     SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
-    docker login -u $(dockerId) -p $(dockerPassword) $(dockerid).azurecr.io
+
+    docker build -t $(dockerId).azurecr.io/smackapi:$(Build.SourceBranchName)-$SHORT_COMMIT --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$SHORT_COMMIT --build-arg VCS_REF=$SHORT_COMMIT app/smackapi/
+    docker login -u $(dockerId) -p $(dockerPassword) $(dockerId).azurecr.io
     docker push $(dockerId).azurecr.io/smackapi:$(Build.SourceBranchName)-$SHORT_COMMIT
   workingDirectory: '$(modulePath)'
-  displayName: 'docker push api'
+  displayName: 'API - Docker build and push'
 
 - script: |
     SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
