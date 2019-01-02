@@ -55,7 +55,7 @@ spec:
         ports:
         - containerPort: 8081
       imagePullSecrets:
-        - name: "acrsecret"
+        - name: acrsecret
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -99,4 +99,4 @@ spec:
         ports:
         - containerPort: 8081
       imagePullSecrets:
-        - name: "acrsecret"
+        - name: acrsecret
