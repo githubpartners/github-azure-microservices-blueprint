@@ -15,8 +15,8 @@ In this demo-driven talk I will show how you can implement advanced DevOps conce
 ### Deploy AKS and install Helm
 
 ```bash
-az group create --location uksouth --name aks
-az aks create -g aks -n mesh -n 1.11.4
+az group create --location centralus --name aks
+az aks create -g aks -n mesh -k 1.11.4
 az aks get-credentials -g aks -n mesh
 
 #deploy helm with muy fancy one-liner
@@ -31,14 +31,15 @@ cd istio-1.0.3
 kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
 kubectl apply -f install/kubernetes/istio-demo-auth.yaml
 
+# Enable automatic sidecar injector
 kubectl label namespace default istio-injection=enabled
 
-#check all is good:
+# Our pods should be in the Running/Completed state
 kubectl get pods -n istio-system
 kubectl get svc -n istio-system
 ```
 
-### (Optional) nstall istioctl on mac
+### (Optional) Install istioctl on mac
 
 ```bash
 brew tap ams0/istioctl
