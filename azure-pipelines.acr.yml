@@ -6,7 +6,7 @@ variables:
   GOROOT: '/usr/local/go1.11' # Go installation path
   GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
   modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)' # Path to the module's code
-
+  
 steps:
 - script: |
     mkdir -p '$(GOBIN)'
@@ -28,8 +28,7 @@ steps:
   displayName: 'Build api'
 
 - script: |
-    SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
-    docker build -t $(dockerId)/smackapi:$(Build.SourceBranchName)-$SHORT_COMMIT --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$SHORT_COMMIT --build-arg VCS_REF=$SHORT_COMMIT app/smackapi/
+    docker build -t $(dockerId).azurecr.io/smackapi:$(Build.SourceBranchName)-$SHORT_COMMIT --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$SHORT_COMMIT --build-arg VCS_REF=$SHORT_COMMIT app/smackapi/
   workingDirectory: '$(modulePath)'
   displayName: 'docker build api'
 
