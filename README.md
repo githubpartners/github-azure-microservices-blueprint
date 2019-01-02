@@ -1,7 +1,7 @@
 [![Build Status](https://dev.azure.com/pjawesome/winops-london/_apis/build/status/pierluigi.winops-london?branchName=master)](https://dev.azure.com/pjawesome/winops-london/_build/latest?definitionId=2?branchName=master)
 
 # winops-london
-Repository to hold my demo files for [Alessandro's talk](https://www.winops.org/london/agenda/bluegreen.php) at WinOps London 2018
+Repository to hold demo files for [Alessandro's talk](https://www.winops.org/london/agenda/bluegreen.php) at WinOps London 2018
 
 
 ## Blue/Green and Canary Deployments with Azure DevOps, Istio and AKS
