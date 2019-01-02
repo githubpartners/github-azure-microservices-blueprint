@@ -9,6 +9,7 @@ variables:
 
 steps:
 - script: |
+    echo 'Docker ID: $(dockerId)'
     mkdir -p '$(GOBIN)'
     mkdir -p '$(GOPATH)/pkg'
     mkdir -p '$(modulePath)'
