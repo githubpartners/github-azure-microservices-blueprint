@@ -1,4 +1,4 @@
-[![Build Status](https://cookingwithazure.visualstudio.com/winops/_apis/build/status/winops-CI)](https://cookingwithazure.visualstudio.com/winops/_build/latest?definitionId=23)
+[![Build Status](https://dev.azure.com/pjawesome/winops-london/_apis/build/status/pierluigi.winops-london?branchName=master)](https://dev.azure.com/pjawesome/winops-london/_build/latest?definitionId=2?branchName=master)
 
 # winops-london
 Repository to hold my demo files for [my talk](https://www.winops.org/london/agenda/bluegreen.php) at WinOps London 2018
