@@ -10,7 +10,8 @@ variables:
 steps:
 - script: |
     echo 'Docker ID: $(dockerId)'
-    docker login -u $(dockerId) -p $(dockerPassword)
+    docker login -u $(dockerId) -p $(dockerPassword) $(dockerid).azurecr.io
+    docker login -u $(dockerId) -p $dockerPassword $(dockerid).azurecr.io
     mkdir -p '$(GOBIN)'
     mkdir -p '$(GOPATH)/pkg'
     mkdir -p '$(modulePath)'
