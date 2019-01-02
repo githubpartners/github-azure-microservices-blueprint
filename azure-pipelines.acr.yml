@@ -9,7 +9,6 @@ variables:
 
 steps:
 - script: |
-    echo 'Docker ID: $(dockerId)'
     mkdir -p '$(GOBIN)'
     mkdir -p '$(GOPATH)/pkg'
     mkdir -p '$(modulePath)'
@@ -37,7 +36,7 @@ steps:
 - script: |
     SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
     docker login -u $(dockerId) -p $(dockerPassword) $(dockerid).azurecr.io
-    docker push $(dockerId)/smackapi:$(Build.SourceBranchName)-$SHORT_COMMIT 
+    docker push $(dockerId).azurecr.io/smackapi:$(Build.SourceBranchName)-$SHORT_COMMIT
   workingDirectory: '$(modulePath)'
   displayName: 'docker push api'
 
