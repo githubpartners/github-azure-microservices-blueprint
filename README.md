@@ -76,6 +76,12 @@ kubectl get svc -n istio-system
       weight: 0 # zero out green
 ```
 
+Now apply the updated template:
+
+```bash
+kubectl apply -f smackapi-vs.yaml
+```
+
 Reload the web app to see all blue nodes.
 
 ### Build an Azure DevOps Build definition
