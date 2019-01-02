@@ -54,9 +54,29 @@ kubectl get svc -n istio-system
 # {...}
 # istio-ingressgateway     LoadBalancer   10.0.134.104   168.61.161.70   80:31380/TCP,443:31390/TCP,31400:31400/TCP,15011:30482/TCP,8060:30740/TCP,853:31204/TCP,15030:31704/TCP,15031:31097/TCP   38m
 # {...}
-# and paste the EXTERNAL_IP in your browser to load the web app's dashboard
+# and paste the EXTERNAL_IP in your browser to load the web app's dashboard. 
+# By default it shows a 50/50 Blue/green deployment
 
 ```
+
+### Modify blue/green traffic routing
+
+```yaml
+# Modify the weights at the end of smackapi-vs.yaml
+# ...
+  http:
+  - route:
+    - destination:
+        host: smackapi
+        subset: blue
+      weight: 100 # max out blue
+    - destination:
+        host: smackapi
+        subset: green
+      weight: 0 # zero out green
+```
+
+Reload the web app to see all blue nodes.
 
 ### Build an Azure DevOps Build definition
 
