@@ -14,7 +14,9 @@ steps:
     mkdir -p '$(Build.ArtifactStagingDirectory)/manual-deploy/'
     cp manual-deploy/smackapi.yaml $(Build.ArtifactStagingDirectory)/manual-deploy/
     cp manual-deploy/smackapi-vs.yaml $(Build.ArtifactStagingDirectory)/manual-deploy/
-     cp manual-deploy/smackweb.yaml $(Build.ArtifactStagingDirectory)/manual-deploy/
+    cp manual-deploy/smackweb.yaml $(Build.ArtifactStagingDirectory)/manual-deploy/
+    cp manual-deploy/smackweb-vs.yaml $(Build.ArtifactStagingDirectory)/manual-deploy/
+    cp manual-deploy/destrule.yaml $(Build.ArtifactStagingDirectory)/manual-deploy/
   displayName: 'copy helm chart and yaml files'
   
 - script: |
