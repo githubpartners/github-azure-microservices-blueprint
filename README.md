@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/pjawesome/winops-london/_apis/build/status/pierluigi.winops-london?branchName=master)](https://dev.azure.com/pjawesome/winops-london/_build/latest?definitionId=2?branchName=master)
+[![Build Status](https://dev.azure.com/pierluigi-github/github-azure-microservices-blueprint/_apis/build/status/githubpartners.github-azure-microservices-blueprint?branchName=master)](https://dev.azure.com/pierluigi-github/github-azure-microservices-blueprint/_build/latest?definitionId=3?branchName=master)
 
 # GitHub + Azure “microservices” Baseline Blueprint 
 An all-purpose microservices blueprint to kickstart a successful DevOps workflow on Azure accompanying our [associated partner program that can be taken to market for the purposes of lead generation in this space](https://docs.google.com/document/d/1jmaa6zpGj9I8CI4ENKDcsORC-YmxGIl1ar9UYZ_iLEE/edit#).
