@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: smackweb
-        image: ams0/smackweb:0.4
+        image: pierluigi.azurecr.io/smackweb:master-d9f0e69d
         env:
         - name: API_SERVICE
           value: "smackapi.default.svc.cluster.local"
@@ -53,3 +53,5 @@ spec:
         imagePullPolicy: IfNotPresent #Always
         ports:
         - containerPort: 8080
+      imagePullSecrets:
+        - name: acrsecret
