@@ -11,8 +11,9 @@ steps:
 - script: |
     ls -la
     cp helm/*.tgz $(Build.ArtifactStagingDirectory)/
-    cp manual-deploy/* $(Build.ArtifactStagingDirectory)/manual-deploy/
-  displayName: 'copy helm chart'
+    mkdir -p '$(Build.ArtifactStagingDirectory)/manual-deploy/'
+    cp manual-deploy/*.yaml $(Build.ArtifactStagingDirectory)/manual-deploy/
+  displayName: 'copy helm chart and yaml files'
   
 - script: |
     mkdir -p '$(GOBIN)'
