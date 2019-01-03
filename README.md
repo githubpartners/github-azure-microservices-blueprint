@@ -37,18 +37,23 @@ Legend: ✅ = Done, 🔶 = WIP, 🔴 = TODO
 
 Follow this guide to implement a blue/green deployment strategy using Azure Pipelines targeting a polyglot application deployed to an Azure Kubernetes Cluster using Helm. Istio is used to shape traffic to different versions of the same microservice giving full control on what your users see and controlling the flow of releases throughout the pipeline.
 
+
 ### Deploy AKS and install Helm
+
+Let's start by creating a resource group and provisioning our K8S cluster called `mesh` on AKS. On you Azure Cloud Shell:
 
 ```bash
 az group create --location centralus --name aks
 az aks create -g aks -n mesh -k 1.11.4
 az aks get-credentials -g aks -n mesh
 
-#deploy helm with muy fancy one-liner
+# deploy helm
 kubectl create serviceaccount -n kube-system tiller; kubectl create clusterrolebinding tiller --clusterrole=cluster-admin --serviceaccount=kube-system:tiller; helm init --service-account tiller
 ```
 
 ### Install istio
+
+Istio allows us to create a virtual service that will be our edge router/proxy capable of fanning out our traffic internally in the cluster based on the desired strategy (in our case a blue/green style deployment). By using its "sidecar injection" mechanisms, our services will be discovered and proxied automatically. For additional information refer to the official docs.
 
 ```bash
 curl -L https://git.io/getLatestIstio | sh -
@@ -56,15 +61,37 @@ cd istio-1.0.3
 kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
 kubectl apply -f install/kubernetes/istio-demo-auth.yaml
 
-# Enable automatic sidecar injector
+# Enable the automatic sidecar injector
 kubectl label namespace default istio-injection=enabled
 
-# Our pods should be in the Running/Completed state
+# Our pods will be in the Running/Completed state soon
 kubectl get pods -n istio-system
 kubectl get svc -n istio-system
 ```
 
+### Create the private Azure Container Registry (ACR) to host our docker containers
+
+
+Follow [the instructions](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal) to create your private ACR and make sure to enable Admin user access. Note down the access keys for admin user in ACR Access Keys section of the portal.
+
+⚠️ **Please note**: the following method is NOT a security best practice. We advise you read the official docs to understand the implications and that this is meant for experimentation and not for production use.
+
+To ensure the docker connection can be established from AKS to the ACR, a docker-registry secret [needs to be definied](https://medium.com/@pjbgf/azure-kubernetes-service-aks-pulling-private-container-images-from-azure-container-registry-acr-9c3e0a0a13f2).
+
+```bash
+kubectl create secret docker-registry acrsecret --docker-server "<REGISTRY_NAME>.azurecr.io" --docker-username <USERNAME> --docker-password <PASSWORD>
+```
+
+Azure DevOps docs recommend to rename azure-pipelines.yml to azure-pipelines.acr.yml and update this in the devops build WEB UI setting pane (see https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/docker?view=vsts&tabs=yaml).
+
+### Create Azure DevOps Release Pipeline
+
+
+
 ### Deploy all pods at once
+
+To illustrsate the current setup we will perform a manual deployment. 
+**Please note**: this requires the specified container tags as defined in the [smackweb.yaml](/manual-deploy/smackweb.yaml) and [smackapi.yaml](/manual-deploy/smackapi.yaml) files to exist in the ACR beforehand.
 
 ```bash
 cd manual_deploy
@@ -129,15 +156,6 @@ brew install istioctl
 kubectl get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 # Returns your IP
 az network dns record-set a add-record -g dns -z <YOUR_FQDN> -n *.mesh --value <IP>
-```
-
-### Build and push the web frontend
-
-```bash
-cd app/smackweb
-GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o smackweb
-docker build -t ams0/smackweb:0.4 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg IMAGE_TAG_REF=0.4 .
-docker push ams0/smackweb:0.4
 ```
 
 
