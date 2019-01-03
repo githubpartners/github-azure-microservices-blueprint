@@ -1,5 +1,5 @@
-FROM alpine
-MAINTAINER Alessandro Vozza <alessandro.vozza@microsoft.com>
+FROM golang
+LABEL authors="Brian Redmond <brianisrunning@gmail.com>, Alessandro Vozza <alessandro.vozza@microsoft.com>, Pierluigi Cau <pierluigi@github.com>"
 
 ARG VCS_REF
 ARG BUILD_DATE
@@ -19,7 +19,9 @@ ENV APP_VERSION $VERSION
 ENV IMAGE_BUILD_DATE $BUILD_DATE
 
 WORKDIR /app
-COPY ./smackweb /app/
+ADD ./*.go /app/
+
+RUN cd /app && go get github.com/gorilla/mux && go build -o smackweb
 
 ENTRYPOINT /app/smackweb
 EXPOSE 8080

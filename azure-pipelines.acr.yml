@@ -37,6 +37,23 @@ steps:
   displayName: 'API - Docker build and push'
 
 - script: |
+    go version
+    cd app/smackweb
+    go get github.com/gorilla/mux
+    GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o smackweb
+  workingDirectory: '$(modulePath)'
+  displayName: 'Build web ui'
+
+- script: |
+    SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
+
+    docker build -t $(dockerId).azurecr.io/smackweb:$(Build.SourceBranchName)-$SHORT_COMMIT --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H%M%SZ"` --build-arg IMAGE_TAG_REF=$SHORT_COMMIT --build-arg VCS_REF=$SHORT_COMMIT app/smackweb/
+    docker login -u $(dockerId) -p $(dockerPassword) $(dockerId).azurecr.io
+    docker push $(dockerId).azurecr.io/smackweb:$(Build.SourceBranchName)-$SHORT_COMMIT
+  workingDirectory: '$(modulePath)'
+  displayName: 'WEB UI - Docker build and push'
+
+- script: |
     SHORT_COMMIT=`echo $(Build.SourceVersion)| cut -c1-8`
     echo $(Build.SourceBranchName)-$SHORT_COMMIT > $(Build.ArtifactStagingDirectory)/imagetag
   displayName: 'export variable'
