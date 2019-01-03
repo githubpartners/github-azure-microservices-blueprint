@@ -11,6 +11,7 @@ steps:
 - script: |
     ls -la
     cp helm/*.tgz $(Build.ArtifactStagingDirectory)/
+    cp manual-deploy/* $(Build.ArtifactStagingDirectory)/manual-deploy/
   displayName: 'copy helm chart'
   
 - script: |
