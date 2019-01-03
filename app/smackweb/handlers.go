@@ -39,7 +39,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		kubePodIP = "192.168.1.100"
 	}
 
-	var htmlHeader = "<!DOCTYPE html><html><head><link rel='stylesheet' href='https://cdn.rawgit.com/yegor256/tacit/gh-pages/tacit-css-1.3.6.min.css'/></head><body><h1>GitHub Microservices Blueprint Demo</h1>"
+	var htmlHeader = "<!DOCTYPE html><html><head><link rel='stylesheet' href='https://cdn.rawgit.com/yegor256/tacit/gh-pages/tacit-css-1.3.6.min.css'/><style>table, th, td {border: 1px solid white;font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size: 24px;color: white}th, td {padding: 20px;}</style></head><body><h1>GitHub Microservices Blueprint Demo</h1>"
 	fmt.Fprintf(w, htmlHeader)
 	fmt.Fprintf(w, "<p>Web Page Repo Git: %s<br>Web image build date: %s<br>Running on: (%s / %s)</p><br><table>", gitSHA, imageBuildDate, kubePodName, kubePodIP)
 
