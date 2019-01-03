@@ -15,6 +15,9 @@ The goal of this baseline blueprint is to illustrate how teams can collaborate e
 
 Azure Boards allows project managers and collaborators to leverage an agile workflow while tracking all work items for regulatory purposes. The tight integration offered by the AKS managed K8S solution simplifies the deployment and operations of a Kubernetes based “service mesh” and enables teams to dynamically scale the application infrastructure with confidence and agility.
 
+![Blueprint diagram](./diagram.png)
+
+
 Key components and their respective implementation status:
 
 | Component | Scope | Status |
