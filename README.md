@@ -31,11 +31,15 @@ Key components and their respective implementation status:
 
 Legend: ✅ = Done, 🔶 = WIP, 🔴 = TODO
 
-
+**Please note** The deployed instance is presently hosted on the personal Azure account of https://github.com/pierluigi. 
 
 ## Blue/Green and Canary Deployments with Azure DevOps, Istio and AKS
 
 Follow this guide to implement a blue/green deployment strategy using Azure Pipelines targeting a polyglot application deployed to an Azure Kubernetes Cluster using Helm. Istio is used to shape traffic to different versions of the same microservice giving full control on what your users see and controlling the flow of releases throughout the pipeline.
+
+The web ui, currently located at http://168.61.161.70/ will show a table with the current Istio routing layout:
+
+![Routing table](./blue-green.png)
 
 
 ### Deploy AKS and install Helm
@@ -158,6 +162,12 @@ kubectl get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadB
 az network dns record-set a add-record -g dns -z <YOUR_FQDN> -n *.mesh --value <IP>
 ```
 
+
+# Additional Work
+
+TODO:
+- [ ] Extract Azure DevOps project to githubpartners organization account
+- [ ] Move ACR and AKS to the githubpartners org on Azure 
 
 ### Credits
 
