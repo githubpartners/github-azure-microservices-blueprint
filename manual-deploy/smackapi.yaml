@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: smackapi
-        image: pierluigi.azurecr.io/smackapi:master-a7c30910
+        image: pierluigi.azurecr.io/smackapi:master-988b8a6b
         env:
         - name: KUBE_NODE_NAME
           valueFrom:
@@ -78,7 +78,7 @@ spec:
     spec:
       containers:
       - name: smackapi
-        image: pierluigi.azurecr.io/smackapi:master-2ec28069
+        image: pierluigi.azurecr.io/smackapi:master-33092b63
         env:
         - name: KUBE_NODE_NAME
           valueFrom:
