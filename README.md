@@ -71,7 +71,6 @@ kubectl get svc -n istio-system
 
 ### Create the private Azure Container Registry (ACR) to host our docker containers
 
-
 Follow [the instructions](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal) to create your private ACR and make sure to enable Admin user access. Note down the access keys for admin user in ACR Access Keys section of the portal.
 
 ⚠️ **Please note**: the following method is NOT a security best practice. We advise you read the official docs to understand the implications and that this is meant for experimentation and not for production use.
@@ -84,8 +83,9 @@ kubectl create secret docker-registry acrsecret --docker-server "<REGISTRY_NAME>
 
 Azure DevOps docs recommend to rename azure-pipelines.yml to azure-pipelines.acr.yml and update this in the devops build WEB UI setting pane (see https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/docker?view=vsts&tabs=yaml).
 
-### Create Azure DevOps Release Pipeline
+### Create the Azure DevOps Release Pipeline
 
+This Azure DevOps [Work Item](https://dev.azure.com/mseng/Azure%20DevOps%20Roadmap/_workitems/edit/1221170) tracks the progress of the release pipeline YAML definition support. Until that is ready, please refer to the pipelines defined in the [Azure DevOps project](https://dev.azure.com/pierluigi-github/github-azure-microservices-blueprint).
 
 
 ### Deploy all pods at once
