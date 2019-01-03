@@ -1,17 +1,38 @@
 [![Build Status](https://dev.azure.com/pjawesome/winops-london/_apis/build/status/pierluigi.winops-london?branchName=master)](https://dev.azure.com/pjawesome/winops-london/_build/latest?definitionId=2?branchName=master)
 
-# winops-london
+# GitHub + Azure “microservices” Baseline Blueprint 
+An all-purpose microservices blueprint to kickstart a successful DevOps workflow on Azure accompanying our [associated partner program that can be taken to market for the purposes of lead generation in this space](https://docs.google.com/document/d/1jmaa6zpGj9I8CI4ENKDcsORC-YmxGIl1ar9UYZ_iLEE/edit#).
 
-Repository to hold demo files for [Alessandro's talk](https://www.winops.org/london/agenda/bluegreen.php) at WinOps London 2018.
+This repository contains instructions for partners willing to utilize our baseline blueprint to kickstart the creation of bespoke solutions based on GitHub, Azure, Docker (ACR), Kubernetes (AKS).
+
+# Business Value Proposition
+
+The “microservices” blueprint helps our partners visualize what a modern development workflow looks like and how it could be implemented in organizations at scale, using a baseline definition that can be expanded as needed depending on specific requirements. For more info about the business value proposition, please refer to the [Partner Program](https://docs.google.com/document/d/1jmaa6zpGj9I8CI4ENKDcsORC-YmxGIl1ar9UYZ_iLEE/edit#) document.
+
+# Blueprint Description
+
+The goal of this baseline blueprint is to illustrate how teams can collaborate efficiently on different microservice repositories on GitHub and go from pull request to production with guaranteed zero downtime thanks to a blue/green deployment strategy.
+
+Azure Boards allows project managers and collaborators to leverage an agile workflow while tracking all work items for regulatory purposes. The tight integration offered by the AKS managed K8S solution simplifies the deployment and operations of a Kubernetes based “service mesh” and enables teams to dynamically scale the application infrastructure with confidence and agility.
+
+Key components and their respective implementation status:
+
+| Component | Scope | Status |
+| --- | --- | --- |
+|GitHub | CI/CD, Pull Request checks, Branch Protection | 🔶 |
+| Azure DevOps | Build, Push to private registry (ACR), Release via blue/green strategy (AKS) | ✅ |
+| Azure Kubernetes Service | Manually configured cluster with instructions | ✅ |
+| Azure Kubernetes Service | Automatic provisionin via ARM or Terraform | 🔴 |
+| Azure Boards | Project Management and GitHub integration with Work Items, Releases, Commits | 🔴 |
+| Azure Application Insights| Monitoring and metrics-based gated rollouts | 🔴 |
+
+Legend: ✅ = Done, 🔶 = WIP, 🔴 = TODO
+
 
 
 ## Blue/Green and Canary Deployments with Azure DevOps, Istio and AKS
 
-Room: CTRL
-
-Talk Time: 2:45 - 3:30pm
-
-In this demo-driven talk I will show how you can implement advanced DevOps concepts like blue/green and canary deployment using Azure Pipelines targeting a polyglot application deployed to an Azure Kubernetes Cluster using Helm. Istio is used to shape traffic to different versions of the same microservice giving full control on what your users see and controlling the flow of releases throughout the pipeline.
+Follow this guide to implement a blue/green deployment strategy using Azure Pipelines targeting a polyglot application deployed to an Azure Kubernetes Cluster using Helm. Istio is used to shape traffic to different versions of the same microservice giving full control on what your users see and controlling the flow of releases throughout the pipeline.
 
 ### Deploy AKS and install Helm
 
@@ -117,19 +138,13 @@ docker push ams0/smackweb:0.4
 ```
 
 
-### Demo flow
+### Credits
 
-- [ ] Deploy AKS
-- [ ] Install Helm
-- [ ] Install Istio
-- [ ] Deploy app
-- [ ] Watch Azure DevOps
-- [ ] Watch Istio with [Grafana](http://127.0.0.1:8001/api/v1/namespaces/istio-system/services/grafana:3000/proxy/d/UbsSZTDik/istio-workload-dashboard?refresh=10s&orgId=1&var-namespace=default&var-workload=smackapi&var-srcns=All&var-srcwl=All&var-dstsvc=All)
-
+Thanks to [Alessandro Vozza's WinOps 2018 talk](https://github.com/ams0/winops-london).
 
 
 ### Useful links
 
-[Smackapp source](https://github.com/chzbrgr71/microsmackv2)
-[Azure trials](aka.ms/aztrialsuk)
-[Isti](http://istio.sh)o
+- [Smackapp source](https://github.com/chzbrgr71/microsmackv2)
+- [Azure trials](aka.ms/aztrialsuk)
+- [Istio](http://istio.io)
