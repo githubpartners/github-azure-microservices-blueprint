@@ -5,6 +5,10 @@ An all-purpose microservices blueprint to kickstart a successful DevOps workflow
 
 This repository contains instructions for partners willing to utilize our baseline blueprint to kickstart the creation of bespoke solutions based on GitHub, Azure, Docker (ACR), Kubernetes (AKS).
 
+# IMPORTANT
+
+⚠️ **Please note**: To save on Azure billing costs the VMs may occasionally be in the Stopped state. This will be solved once this project is moved to an organization level account (see [TODOs](https://github.com/githubpartners/github-azure-microservices-blueprint#additional-work)).
+
 # Business Value Proposition
 
 The “microservices” blueprint helps our partners visualize what a modern development workflow looks like and how it could be implemented in organizations at scale, using a baseline definition that can be expanded as needed depending on specific requirements. For more info about the business value proposition, please refer to the [Partner Program](https://docs.google.com/document/d/1jmaa6zpGj9I8CI4ENKDcsORC-YmxGIl1ar9UYZ_iLEE/edit#) document.
