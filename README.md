@@ -48,7 +48,7 @@ The web ui, currently located at http://168.61.161.70/ will show a table with th
 
 ## Demo script
 
-- Trigger a new release for the ["Reset for demo" pipeline](https://dev.azure.com/pierluigi-github/github-azure-microservices-blueprint/_release?view=mine&definitionId=2)
+- Trigger a new release for the ["Reinstall Helm Chart" pipeline](https://dev.azure.com/pierluigi-github/github-azure-microservices-blueprint/_release?view=mine&definitionId=3)
 - Wait and open http://168.61.161.70
 - Verify blue/green cluster outline is ready
 - Modify the backColor to "Purple" and wait for CI/CD to kick in
