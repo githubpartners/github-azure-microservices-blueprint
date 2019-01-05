@@ -3,9 +3,10 @@
 # GitHub + Azure “microservices” Baseline Blueprint 
 An all-purpose microservices blueprint to kickstart a successful DevOps workflow on Azure accompanying our [associated partner program that can be taken to market for the purposes of lead generation in this space](https://docs.google.com/document/d/1jmaa6zpGj9I8CI4ENKDcsORC-YmxGIl1ar9UYZ_iLEE/edit#).
 
-This repository contains instructions for partners willing to utilize our baseline blueprint to kickstart the creation of bespoke solutions based on GitHub, Azure, Docker (ACR), Kubernetes (AKS).
+This repository contains instructions for partners willing to utilize our baseline blueprint to kickstart the creation of bespoke solutions based on GitHub, Azure, Docker (ACR), Kubernetes (AKS) as well being connected to an Azure DevOps project with a CI/CD pipeline to illustrate a blue/green strategy for microservice architectures.
 
-# IMPORTANT
+- [Public URL of the `smackweb` service](http://168.61.161.70/)
+- [Azure DevOps Project](https://dev.azure.com/pierluigi-github/github-azure-microservices-blueprint)
 
 ⚠️ **Please note**: To save on Azure billing costs the VMs may occasionally be in the Stopped state. This will be solved once this project is moved to an organization level account (see [TODOs](https://github.com/githubpartners/github-azure-microservices-blueprint#additional-work)).
 
