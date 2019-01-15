@@ -31,7 +31,7 @@ Key components and their respective implementation status:
 | Azure DevOps | Build, Push to private registry (ACR), Release via blue/green strategy (AKS) | ✅ |
 | Azure Kubernetes Service | Manually configured cluster with instructions | ✅ |
 | Azure Kubernetes Service | Automatic provisionin via ARM or Terraform | 🔴 |
-| Azure Boards | Project Management and GitHub integration with Work Items, Releases, Commits | 🔴 |
+| Azure Boards | Project Management and GitHub integration with Work Items, Releases, Commits | 🔶 |
 | Azure Application Insights| Monitoring and metrics-based gated rollouts | 🔴 |
 
 Legend: ✅ = Done, 🔶 = WIP, 🔴 = TODO
