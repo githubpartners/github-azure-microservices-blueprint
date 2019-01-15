@@ -40,11 +40,14 @@ Legend: ✅ = Done, 🔶 = WIP, 🔴 = TODO
 
 ## Blue/Green and Canary Deployments with Azure DevOps, Istio and AKS
 
+### Blue/Green diagram
+![Blueprint deployment](./blue-green.png)
+
 Follow this guide to implement a blue/green deployment strategy using Azure Pipelines targeting a polyglot application deployed to an Azure Kubernetes Cluster using Helm. Istio is used to shape traffic to different versions of the same microservice giving full control on what your users see and controlling the flow of releases throughout the pipeline.
 
 The web ui, currently located at http://168.61.161.70/ will show a table with the current Istio routing layout:
 
-![Routing table](./blue-green.png)
+![Routing table](./webui.png)
 
 ## Demo script
 
@@ -103,6 +106,9 @@ kubectl create secret docker-registry acrsecret --docker-server "<REGISTRY_NAME>
 Azure DevOps docs recommend to rename azure-pipelines.yml to azure-pipelines.acr.yml and update this in the devops build WEB UI setting pane (see https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/docker?view=vsts&tabs=yaml).
 
 ### Create the Azure DevOps Release Pipeline
+
+### Workflow (simplified)
+![Blueprint workflow](./workflow.png)
 
 This Azure DevOps [Work Item](https://dev.azure.com/mseng/Azure%20DevOps%20Roadmap/_workitems/edit/1221170) tracks the progress of the release pipeline YAML definition support. Until that is ready, please refer to the pipelines defined in the [Azure DevOps project](https://dev.azure.com/pierluigi-github/github-azure-microservices-blueprint).
 
