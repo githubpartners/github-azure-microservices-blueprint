@@ -54,6 +54,7 @@ The web ui, currently located at http://168.61.161.70/ will show a table with th
 - Modify the backColor to "Purple" and wait for CI/CD to kick in
 - Approve manually the [Blue/Green pipeline](https://dev.azure.com/pierluigi-github/github-azure-microservices-blueprint/_release?view=mine&definitionId=1)
 
+Please note the Pipeline is configured to only trigger CI builds for changes under the `app/*` folder. This is to prevent redundant executions.
 
 
 ### Deploy AKS and install Helm
