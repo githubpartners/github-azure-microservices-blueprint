@@ -110,7 +110,7 @@ Azure DevOps docs recommend to rename azure-pipelines.yml to azure-pipelines.acr
 ### Workflow (simplified)
 ![Blueprint workflow](./workflow.png)
 
-This Azure DevOps [Work Item](https://dev.azure.com/mseng/Azure%20DevOps%20Roadmap/_workitems/edit/1221170) tracks the progress of the release pipeline YAML definition support. Until that is ready, please refer to the pipelines defined in the [Azure DevOps project](https://dev.azure.com/pierluigi-github/github-azure-microservices-blueprint).
+This Azure DevOps [Work Item](https://dev.azure.com/mseng/Azure%20DevOps%20Roadmap/_workitems/edit/1221170) tracks the progress of the release pipeline YAML definition support. Until that is ready, please import the [provided pipeline JSON definition](./Blue_Green.json) in the repo.
 
 
 ### Deploy all pods at once
