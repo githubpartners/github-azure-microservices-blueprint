@@ -164,7 +164,7 @@ Reload the web app to see all blue nodes.
 ### Build an Azure DevOps Build definition
 
 Create a project and a build pipeline connected to Github and point it to `azure-pipelines.yml`
-
+Import the Blue/Green pipeline from the provided JSON file in the repo for the Azure DevOps Pipelines.
 
 ## Optional
 
